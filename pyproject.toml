@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "moose-dj"
+version = "0.1.0"
+description = ""
+authors = ["b-long"]
+readme = "README.md"
+packages = [{include = "moose_dj"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "^4.2.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest-django = "^4.5.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
