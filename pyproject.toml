@@ -7,8 +7,9 @@ readme = "README.md"
 packages = [{include = "moose_dj"}]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.11"
 django = "^4.2.2"
+django-stubs = {extras = ["compatible-mypy"], version = "^4.2.1"}
 
 
 [tool.poetry.group.dev.dependencies]
@@ -17,3 +18,42 @@ pytest-django = "^4.5.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+
+# See https://github.com/charliermarsh/ruff/#pycodestyle
+# for error codes. The ones we ignore are:
+#  E501: Line too long (black enforces this for us)
+#
+# flake8-bugbear compatible checks. Its error codes are described at
+# https://github.com/charliermarsh/ruff/#flake8-bugbear
+#  E501: Line too long ( > 88 characters)
+ignore = [
+    "E501",
+]
+select = [
+    # pycodestyle checks.
+    "E",
+    "W",
+    # pyflakes checks.
+    "F",
+    # flake8-bugbear checks.
+    "B0",
+    # flake8-comprehensions checks.
+    "C4",
+]
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+files = ["rich"]
+show_error_codes = true
+strict = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+
+[[tool.mypy.overrides]]
+module = ["pygments.*", "IPython.*", "ipywidgets.*"]
+ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "moose_dj.settings"
