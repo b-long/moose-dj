@@ -1,0 +1,68 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        // Note, this is a bit of a hack and may not be portable.
+        //
+        // Based on: https://stackoverflow.com/a/70993020
+        //
+        // See also: https://github.com/microsoft/vscode-python/issues/73#issuecomment-998847428
+        {
+            "name": "Run 1 Django Test",
+            "type": "python",
+            "request": "launch",
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "program": "${workspaceFolder}/moosedj/manage.py",
+            "args": [
+                "test",
+                "${relativeFileDirname}",
+                // "${relativeFileDirname}/${fileBasename}",
+                // The -v2 flag sets verbose Django test output
+                "-v2"
+            ],
+            "django": true,
+            "env": {
+                "MOOSE_DJANGO_DEBUG": "TRUE",
+                "MOOSE_DJANGO_ADMIN_ENABLED": "TRUE",
+                "MOOSE_DJANGO_UPLOAD_PATH": "${workspaceFolder}/local-uploads/",
+                "MOOSE_DJANGO_SECRET_KEY": "changeme"
+            }
+        },
+        {
+            "name": "Python: Entire Django application",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/moosedj/manage.py",
+            "args": [
+                "runserver"
+            ],
+            "django": true,
+            "env": {
+                "MOOSE_DJANGO_DEBUG": "TRUE",
+                "MOOSE_DJANGO_ADMIN_ENABLED": "TRUE",
+                "MOOSE_DJANGO_UPLOAD_PATH": "${workspaceFolder}/local-uploads/",
+                "MOOSE_DJANGO_SECRET_KEY": "changeme"
+            }
+        },
+        {
+            "name": "Python: Pytest one file",
+            "type": "python",
+            "request": "launch",
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "program": "${workspaceFolder}/.venv/bin/pytest",
+            "args": [
+                "${file}"
+            ],
+            "django": true,
+            "env": {
+                "MOOSE_DJANGO_DEBUG": "TRUE",
+                "MOOSE_DJANGO_ADMIN_ENABLED": "TRUE",
+                "MOOSE_DJANGO_UPLOAD_PATH": "${workspaceFolder}/local-uploads/",
+                "MOOSE_DJANGO_SECRET_KEY": "changeme"
+            }
+        }
+
+    ]
+}

@@ -1,0 +1,74 @@
+[tool.poetry]
+name = "moose-dj"
+version = "0.1.0"
+description = ""
+authors = ["b-long"]
+readme = "README.md"
+packages = [{include = "moose_dj"}]
+
+[tool.poetry.dependencies]
+python = "^3.11,<4"
+django = ">=4.2"
+django-stubs = {extras = ["compatible-mypy"], version = ">=4"}
+
+
+[tool.poetry.group.dev.dependencies]
+pytest-django = "^4.5.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+
+# See https://github.com/charliermarsh/ruff/#pycodestyle
+# for error codes. The ones we ignore are:
+#  E501: Line too long (black enforces this for us)
+#
+ignore = [
+    "E501",
+]
+select = [
+    # pycodestyle checks.
+    "E",
+    "W",
+    # pyflakes checks.
+    "F",
+    # flake8-bugbear checks.
+    "B0",
+    # flake8-comprehensions checks.
+    "C4",
+    "DJ",
+]
+
+[tool.mypy]
+mypy_path = "moose_dj"
+
+strict_optional = true
+files = ["rich"]
+show_error_codes = true
+# strict = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+exclude = "tasks.py"
+
+[[tool.mypy.overrides]]
+module = ["pygments.*", "IPython.*", "ipywidgets.*"]
+ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "moose_dj.settings"
+
+# [tool.mypy.plugins.django-stubs]
+# django_settings_module = "moose_dj.settings"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "moose_dj.settings"
+# -- recommended but optional:
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py", "news/tests/*.py", "news/tests.py"]
+env = [
+    "MOOSE_DJANGO_DEBUG = TRUE",
+    "D:MOOSE_DJANGO_UPLOAD_PATH = {TMPDIR}",
+    "DJANGO_SETTINGS_MODULE = moose_dj.settings",
+    "MOOSE_DJANGO_SECRET_KEY = changeme",
+]
