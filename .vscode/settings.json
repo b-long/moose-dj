@@ -1,0 +1,54 @@
+{
+    // When working inside this project, we use a Poetry managed Python
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    // VSCode allows many different tools for testing, including
+    // 'pytest' and another tool called 'unittest'.  The same is true
+    // for linting and formatting.  For example, if you wanted to 
+    // enable 'unittest', you would replace line 9 with the following:
+     "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.cwd": "${workspaceFolder}/moosedj/",
+    // Here we tell pylint to ignore the ansible directory
+    // Since, in many cases Ansible modules use Python under-the-hood
+    "python.testing.pytestArgs": [
+        ".",
+        "-s",
+        "-vv"
+    ],
+    // Language specific configuration.
+    // https://stackoverflow.com/q/50606758/320399
+    "[python]": {
+        // By placing these editor.* configurations inside a [python]
+        // block, we are disabling automatic formatting of non-python files
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    // Enabling 'formatOnPaste' will break Black.  
+    // More info: https://github.com/Microsoft/vscode-python/issues/1883
+    "python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
+    "python.formatting.provider": "black",
+    // // Flags to switch Pylint on / off
+    // "python.linting.enabled": true,
+
+    // The following line is an intentional setting to prevent us from
+    // shooting ourselves in the foot.  Rather than controlling environment 
+    // variable loading via VSCode's built-in capability, we want to control
+    // these via our "config.py" and "env_vars.py" modules.  The setting 
+    // below will override both default behavior as well as any User-level 
+    // configuration that has been set for "python.envFile".  While that 
+    // may seem odd, it is intentional, so that we can maintain our 3-tier
+    // environment variable loading design.  Highest priority to lowest:
+    // 
+    //      1) External environment variables
+    //      2) Any '.env-no-git' file
+    //      3) Any '.env' file
+    //
+    // Otherwise, we would lose control of the prioritization.  You can
+    // read more about this VSCode feature on the web:
+    //      https://code.visualstudio.com/docs/python/environments#_environment-variable-definitions-file
+    // "python.envFile": ""
+    // "python.linting.pylintEnabled": true,
+    // "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint",
+
+}

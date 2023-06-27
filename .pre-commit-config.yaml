@@ -9,7 +9,16 @@ repos:
       - id: check-case-conflict
       - id: check-docstring-first
       - id: check-merge-conflict
-      - id: check-json
+      # - id: check-json
+      # 
+      # NOTE: The standar 'check-json' doesn't support JSON
+      # with comments.  More info: 
+      #   https://github.com/pre-commit/pre-commit-hooks/issues/395
+      #
+      # - repo: https://gitlab.com/bmares/check-json5
+      #   rev: v1.0.0
+      #   hooks:
+      #   - id: check-json5
       - id: check-toml
       - id: check-yaml
       - id: end-of-file-fixer
