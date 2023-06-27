@@ -14,7 +14,11 @@ from invoke import Context, task
 DISABLE_IN_CI = sys.platform.startswith("linux")
 
 GIT_ROOT = Path(__file__).resolve().parent
-DJ_PROJECT_ROOT = GIT_ROOT / "moosedj"
+# Previously (and in other Django projects) we may have
+# used a project sub-directory as our primary Django
+# project directory.  Here, we use the git root.
+# DJ_PROJECT_ROOT = GIT_ROOT / "moosedj"
+DJ_PROJECT_ROOT = GIT_ROOT
 
 DJANGO_DEBUG_ENVIRONMENT = {
     "MOOSE_DJANGO_DEBUG": "TRUE",
@@ -26,7 +30,7 @@ DJANGO_DEBUG_ENVIRONMENT = {
 DOCKER_REQUIRE_EXISTING_LOCAL_DB = bool(
     os.environ.get("DOCKER_USE_EXISTING_LOCAL_DB", False)
 )
-LOCAL_DB_FILE = Path(GIT_ROOT / "moosedj" / "db.sqlite3")
+LOCAL_DB_FILE = Path(DJ_PROJECT_ROOT / "db.sqlite3")
 
 
 @contextmanager
@@ -59,7 +63,7 @@ def destroy_local_database(context):
 @task
 def initialize_local_database(context):
     with environ(DJANGO_DEBUG_ENVIRONMENT):
-        with context.cd(GIT_ROOT / "moosedj"):
+        with context.cd(DJ_PROJECT_ROOT):
             context.run("poetry run python manage.py makemigrations")
             context.run("poetry run python manage.py migrate")
             context.run(
@@ -71,7 +75,7 @@ def initialize_local_database(context):
 
 def find_local_database(context):
     local_db_exists = False
-    with context.cd(GIT_ROOT / "moosedj"):
+    with context.cd(DJ_PROJECT_ROOT):
         local_db_exists = LOCAL_DB_FILE.is_file()
 
     return local_db_exists
@@ -138,7 +142,7 @@ def run_server(context, pty=False, color=False):
     Run the local, native, web server.
     """
     with environ(DJANGO_DEBUG_ENVIRONMENT):
-        with context.cd(GIT_ROOT / "moosedj"):
+        with context.cd(DJ_PROJECT_ROOT):
             if find_local_database(context):
                 print("WARNING: A local database file DOES exist.")
                 context.run("poetry run python manage.py runserver")
@@ -194,7 +198,7 @@ def test_show_all_pytest(context):
     Display tests that pytest can execute.
     """
     with environ(DJANGO_DEBUG_ENVIRONMENT):
-        with context.cd(GIT_ROOT / "moosedj"):
+        with context.cd(DJ_PROJECT_ROOT):
             if find_local_database(context):
                 print("WARNING: A local database file DOES exist.")
                 context.run("poetry run pytest --collect-only")
@@ -210,7 +214,7 @@ def test_run_all_pytest(context):
     Run project-wide test suite, using 'pytest'.
     """
     with environ(DJANGO_DEBUG_ENVIRONMENT):
-        with context.cd(GIT_ROOT / "moosedj"):
+        with context.cd(DJ_PROJECT_ROOT):
             if find_local_database(context):
                 print("WARNING: A local database file DOES exist.")
                 context.run("poetry run pytest .")
@@ -228,7 +232,7 @@ def test_run_all_unittest(context, pty=True, color=True):
     More info: https://docs.djangoproject.com/en/dev/topics/testing/
     """
     with environ(DJANGO_DEBUG_ENVIRONMENT):
-        with context.cd(GIT_ROOT / "moosedj"):
+        with context.cd(DJ_PROJECT_ROOT):
             if find_local_database(context):
                 print("WARNING: A local database file DOES exist.")
             else:
@@ -246,7 +250,7 @@ def test_run_one_unittest(context, filename, pty=True, color=True):
     More info: https://docs.djangoproject.com/en/dev/topics/testing/
     """
     with environ(DJANGO_DEBUG_ENVIRONMENT):
-        with context.cd(GIT_ROOT / "moosedj"):
+        with context.cd(DJ_PROJECT_ROOT):
             if find_local_database(context):
                 print("WARNING: A local database file DOES exist.")
             else:
