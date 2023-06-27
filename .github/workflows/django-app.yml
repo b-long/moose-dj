@@ -77,6 +77,6 @@ jobs:
           invoke initialize-local-database
           invoke django-admin-check
 
-          poetry run pytest moosedj/
+          poetry run pytest .
         env:
           MOOSE_DJANGO_UPLOAD_PATH: "/tmp/local-uploads/"
