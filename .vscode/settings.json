@@ -7,7 +7,7 @@
     // enable 'unittest', you would replace line 9 with the following:
      "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.testing.cwd": "${workspaceFolder}/moosedj/",
+    "python.testing.cwd": "${workspaceFolder}/",
     // Here we tell pylint to ignore the ansible directory
     // Since, in many cases Ansible modules use Python under-the-hood
     "python.testing.pytestArgs": [
