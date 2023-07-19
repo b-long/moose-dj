@@ -16,8 +16,10 @@ on:
   #   types: [opened, synchronize, reopened]
   push:
     branches:
-      - main
-      - develop
+      # This is a cheap trick to disable this Github Actions Workflow
+      - docker-build-branch
+      # - main
+      # - develop
   
 permissions:
   contents: read
