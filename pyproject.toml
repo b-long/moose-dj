@@ -64,3 +64,14 @@ django_settings_module = "moose_dj.settings"
 
 # [tool.mypy.plugins.django-stubs]
 # django_settings_module = "moose_dj.settings"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "moose_dj.settings"
+# -- recommended but optional:
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py", "news/tests/*.py", "news/tests.py"]
+env = [
+    "MOOSE_DJANGO_DEBUG = TRUE",
+    "D:MOOSE_DJANGO_UPLOAD_PATH = {TMPDIR}",
+    "DJANGO_SETTINGS_MODULE = moose_dj.settings",
+    "MOOSE_DJANGO_SECRET_KEY = changeme",
+]
