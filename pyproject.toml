@@ -30,7 +30,7 @@ line-length = 88
 # https://github.com/charliermarsh/ruff/#flake8-bugbear
 #  E501: Line too long ( > 88 characters)
 ignore = [
-    "E501",
+    # "E501",
 ]
 select = [
     # pycodestyle checks.
@@ -42,6 +42,7 @@ select = [
     "B0",
     # flake8-comprehensions checks.
     "C4",
+    "DJ",
 ]
 
 [tool.mypy]
