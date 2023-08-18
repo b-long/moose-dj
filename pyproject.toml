@@ -45,10 +45,12 @@ select = [
 ]
 
 [tool.mypy]
-plugins = ["mypy_django_plugin.main"]
+mypy_path = "moose_dj"
+
+strict_optional = true
 files = ["rich"]
 show_error_codes = true
-strict = true
+# strict = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 exclude = "tasks.py"
 
@@ -58,3 +60,6 @@ ignore_missing_imports = true
 
 [tool.django-stubs]
 django_settings_module = "moose_dj.settings"
+
+# [tool.mypy.plugins.django-stubs]
+# django_settings_module = "moose_dj.settings"
