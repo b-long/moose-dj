@@ -26,11 +26,8 @@ line-length = 88
 # for error codes. The ones we ignore are:
 #  E501: Line too long (black enforces this for us)
 #
-# flake8-bugbear compatible checks. Its error codes are described at
-# https://github.com/charliermarsh/ruff/#flake8-bugbear
-#  E501: Line too long ( > 88 characters)
 ignore = [
-    # "E501",
+    "E501",
 ]
 select = [
     # pycodestyle checks.
