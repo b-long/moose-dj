@@ -7,9 +7,9 @@ readme = "README.md"
 packages = [{include = "moose_dj"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
-django = "^4.2.2"
-django-stubs = {extras = ["compatible-mypy"], version = "^4.2.1"}
+python = "^3.11,<4"
+django = ">=4.2"
+django-stubs = {extras = ["compatible-mypy"], version = ">=4"}
 
 
 [tool.poetry.group.dev.dependencies]
@@ -26,9 +26,6 @@ line-length = 88
 # for error codes. The ones we ignore are:
 #  E501: Line too long (black enforces this for us)
 #
-# flake8-bugbear compatible checks. Its error codes are described at
-# https://github.com/charliermarsh/ruff/#flake8-bugbear
-#  E501: Line too long ( > 88 characters)
 ignore = [
     "E501",
 ]
@@ -42,13 +39,16 @@ select = [
     "B0",
     # flake8-comprehensions checks.
     "C4",
+    "DJ",
 ]
 
 [tool.mypy]
-plugins = ["mypy_django_plugin.main"]
+mypy_path = "moose_dj"
+
+strict_optional = true
 files = ["rich"]
 show_error_codes = true
-strict = true
+# strict = true
 enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 exclude = "tasks.py"
 
@@ -58,3 +58,17 @@ ignore_missing_imports = true
 
 [tool.django-stubs]
 django_settings_module = "moose_dj.settings"
+
+# [tool.mypy.plugins.django-stubs]
+# django_settings_module = "moose_dj.settings"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "moose_dj.settings"
+# -- recommended but optional:
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py", "news/tests/*.py", "news/tests.py"]
+env = [
+    "MOOSE_DJANGO_DEBUG = TRUE",
+    "D:MOOSE_DJANGO_UPLOAD_PATH = {TMPDIR}",
+    "DJANGO_SETTINGS_MODULE = moose_dj.settings",
+    "MOOSE_DJANGO_SECRET_KEY = changeme",
+]

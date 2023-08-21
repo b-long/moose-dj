@@ -324,3 +324,12 @@ def run_huey_consumer(context, pty=True):
             # Using 'python manage.py check' is ike 'django-admin check', but it uses
             # project specific configuration & works with poetry
             context.run("poetry run python manage.py run_huey")
+
+
+# Useful when debugging
+if __name__ == "__main__":
+    from invoke import Context, Local, task
+
+    c = Context()
+    runner = Local(c)
+    create_django_app(runner.context)
