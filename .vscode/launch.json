@@ -14,7 +14,7 @@
             "type": "python",
             "request": "launch",
             "python": "${workspaceFolder}/.venv/bin/python",
-            "program": "${workspaceFolder}/moosedj/manage.py",
+            "program": "${workspaceFolder}/manage.py",
             "args": [
                 "test",
                 "${relativeFileDirname}",
@@ -34,7 +34,7 @@
             "name": "Python: Entire Django application",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/moosedj/manage.py",
+            "program": "${workspaceFolder}/manage.py",
             "args": [
                 "runserver"
             ],
