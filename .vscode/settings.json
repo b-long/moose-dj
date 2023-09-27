@@ -5,16 +5,16 @@
     // 'pytest' and another tool called 'unittest'.  The same is true
     // for linting and formatting.  For example, if you wanted to 
     // enable 'unittest', you would replace line 9 with the following:
-     "python.testing.unittestEnabled": false,
+    "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.testing.cwd": "${workspaceFolder}/",
+    // "python.testing.cwd": "${workspaceFolder}/",
     // Here we tell pylint to ignore the ansible directory
     // Since, in many cases Ansible modules use Python under-the-hood
-    "python.testing.pytestArgs": [
-        ".",
-        "-s",
-        "-vv"
-    ],
+    // "python.testing.pytestArgs": [
+    //     ".",
+    //     "-s",
+    //     "-vv"
+    // ],
     // Language specific configuration.
     // https://stackoverflow.com/q/50606758/320399
     "[python]": {
@@ -22,12 +22,12 @@
         // block, we are disabling automatic formatting of non-python files
         "editor.formatOnPaste": false,
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "ms-python.autopep8"
+        // "editor.defaultFormatter": "ms-python.autopep8"
     },
     // Enabling 'formatOnPaste' will break Black.  
     // More info: https://github.com/Microsoft/vscode-python/issues/1883
-    "python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
-    "python.formatting.provider": "black",
+    // "python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
+    // "python.formatting.provider": "black",
     // // Flags to switch Pylint on / off
     // "python.linting.enabled": true,
 
@@ -50,5 +50,5 @@
     // "python.envFile": ""
     // "python.linting.pylintEnabled": true,
     // "python.linting.pylintPath": "${workspaceFolder}/.venv/bin/pylint",
-
+    "json.schemaDownload.enable": true
 }
